@@ -142,18 +142,5 @@
   <!-- JavaScript Bootstrap (untuk fungsi seperti navbar collapse) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-  <script>
-  // Mengecek apakah browser mendukung service worker
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js')
-      .then(function(reg) {
-        console.log('Service Worker terdaftar:', reg.scope);
-      })
-      .catch(function(error) {
-        console.log('Gagal mendaftarkan Service Worker:', error);
-      });
-  }
-</script>
-
 </body>
 </html>
