@@ -20,30 +20,35 @@
 
 
 
+// Event listener untuk tahap "install" dari Service Worker
 self.addEventListener("install", async event => {
+  // Membuka cache dengan nama "pwa-assets"
   const cache = await caches.open("pwa-assets");
-  // it stores all resources on first SW install
+
+  // Menyimpan semua resource ke dalam cache saat pertama kali Service Worker diinstall
   cache.addAll([
-	  "./",
-	  "./style.css", 
-	  "./index.html", 
-	  "./detail.html", 
-	  "./sneaker1.jpg", 
-	  "./sneaker2.jpg", 
-	  "./sneaker3.jpg", 
-	  "./sneaker4.jpg"
+    "./",               // Halaman utama
+    "./style.css",      // File CSS
+    "./index.html",     // Halaman index
+    "./detail.html",    // Halaman detail
+    "./sneaker1.jpg",   // Gambar produk sneaker 1
+    "./sneaker2.jpg",   // Gambar produk sneaker 2
+    "./sneaker3.jpg",   // Gambar produk sneaker 3
+    "./sneaker4.jpg"    // Gambar produk sneaker 4
   ]); 
 });
- 
+
+// Event listener untuk tahap "fetch", menangani semua permintaan jaringan
 self.addEventListener("fetch", event => {
-   event.respondWith(
-     caches.match(event.request).then(cachedResponse => {
-	   // It can update the cache to serve updated content on the next request
-         return cachedResponse || fetch(event.request);
-     }
-   )
+  event.respondWith(
+    // Mencocokkan permintaan dengan cache terlebih dahulu
+    caches.match(event.request).then(cachedResponse => {
+      // Jika ada di cache, kembalikan dari cache; jika tidak, ambil dari jaringan
+      return cachedResponse || fetch(event.request);
+    })
   )
 });
+
 
 
 
